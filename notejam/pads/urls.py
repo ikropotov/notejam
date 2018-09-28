@@ -1,10 +1,10 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 
 from pads.views import (PadCreateView, PadNotesListView, PadUpdateView,
 PadDeleteView)
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^create/$', login_required(PadCreateView.as_view()),
         name='create_pad'),
     url(r'^(?P<pk>\d+)/$', login_required(PadNotesListView.as_view()),
@@ -13,4 +13,4 @@ urlpatterns = patterns('',
         name='edit_pad'),
     url(r'^(?P<pk>\d+)/delete/$', login_required(PadDeleteView.as_view()),
         name='delete_pad'),
-)
+]

@@ -1,4 +1,4 @@
-from django.test.simple import DjangoTestSuiteRunner
+from django.test.runner import DiscoverRunner
 from django.conf import settings
 from django.contrib.auth.models import User
 
@@ -8,7 +8,7 @@ EXCLUDED_APPS = getattr(settings, 'TEST_EXCLUDE', [])
 
 # based on http://djangosnippets.org/snippets/2211/
 # main approach is to ignore library tests
-class AdvancedTestSuiteRunner(DjangoTestSuiteRunner):
+class AdvancedTestSuiteRunner(DiscoverRunner):
     def __init__(self, *args, **kwargs):
         # to avoid circular import
         from django.conf import settings

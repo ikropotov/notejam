@@ -1,10 +1,9 @@
 import os
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = []
 
-PROJECT_DIR = "{}/../".format(os.path.dirname(__file__))
+PROJECT_DIR = "{}/../../".format(os.path.dirname(__file__))
 
 ADMINS = (
     ('Sergey Komar', 'komarserjio@gmail.com'),
@@ -31,7 +30,7 @@ TIME_ZONE = 'Europe/Kiev'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-US'
 
 SITE_ID = 1
 
@@ -81,23 +80,6 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'g+cy2q816xje*f#k=9z!e*t%h-7tt(tbo$q^1n)l0gd1=x8$65'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.core.context_processors.request",
-    "django.contrib.messages.context_processors.messages"
-)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -116,9 +98,31 @@ APPEND_SLASH = True
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'notejam.wsgi.application'
 
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_DIR, 'templates/'),
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': False,
+        'DIRS': [os.path.join(PROJECT_DIR, 'templates/')],
+        'OPTIONS': {
+            'debug': DEBUG,
+            'context_processors': (
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.tz",
+                "django.template.context_processors.request",
+                "django.contrib.messages.context_processors.messages",
+            ),
+            'loaders': (
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                #     'django.template.loaders.eggs.Loader',
+            )
+        },
+    },
+]
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -127,11 +131,10 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'django.contrib.admin',
+    'django.contrib.admin',
     'pads',
     'notes',
     'users',
-    'south',
 )
 
 AUTHENTICATION_BACKENDS = (

@@ -19,7 +19,7 @@ class NoteCreateView(CreateView):
     def get_initial(self):
         return {'pad': self.request.GET.get('pad', None)}
 
-    def get_form(self, form_class):
+    def get_form(self):
         form = super(NoteCreateView, self).get_form(self.get_form_class())
         # limit pad choice
         form.fields['pad'].queryset = Pad.objects.filter(
@@ -58,7 +58,7 @@ class NoteUpdateView(UpdateView):
         qs = super(NoteUpdateView, self).get_queryset()
         return qs.filter(user=self.request.user)
 
-    def get_form(self, form_class):
+    def get_form(self):
         form = super(NoteUpdateView, self).get_form(self.get_form_class())
         # limit pad choice
         form.fields['pad'].queryset = Pad.objects.filter(
