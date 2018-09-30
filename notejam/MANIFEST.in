@@ -1,0 +1,6 @@
+recursive-include templates *
+recursive-include notes/templates *
+recursive-include pads/templates *
+recursive-include users/templates *
+
+recursive-include static_files *

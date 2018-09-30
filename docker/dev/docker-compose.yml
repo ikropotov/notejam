@@ -6,6 +6,7 @@ services:
       dockerfile: docker/dev/Dockerfile
     volumes:
       - cache:/cache
+      - build:/build
     links:
       - db
     environment:
@@ -14,6 +15,16 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: password
       TEST_OUTPUT_DIR: /reports
+
+  builder:
+    build:
+      context: ../../
+      dockerfile: docker/dev/Dockerfile
+    volumes:
+      - build:/build
+      - ../../target:/wheelhouse
+    entrypoint: "entrypoint.sh"
+    command: ["pip", "wheel", "--no-index", "-f /build", "."]
 
   agent:
     image: 878799173487.dkr.ecr.us-west-2.amazonaws.com/ansible
@@ -35,3 +46,4 @@ services:
 
 volumes:
   cache:
+  build:
