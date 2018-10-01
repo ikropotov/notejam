@@ -1,0 +1,66 @@
+version: '3'
+
+volumes:
+  webroot:
+
+services:
+  app:
+    build:
+      context: ../../
+      dockerfile: docker/release/Dockerfile
+    links:
+      - db
+    environment:
+      DJANGO_SETTINGS_MODULE: notejam.settings.release
+      MYSQL_HOST: db
+      MYSQL_USER: notejam
+      MYSQL_PASSWORD: password
+    volumes:
+      - webroot:/var/www/notejam
+    command:
+      - uwsgi
+      - "--socket /var/www/notejam/notejam.sock"
+      - "--chmod-socket=666"
+      - "--module notejam.wsgi"
+      - "--master"
+      - "--die-on-term"
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    links:
+      - app
+    ports:
+      - "8000:8000"
+    volumes:
+      - webroot:/var/www/notejam
+
+  db:
+    image: mysql:5.7
+    expose:
+      - "3306"
+    environment:
+      MYSQL_DATABASE: notejamdb
+      MYSQL_USER: notejam
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+
+  agent:
+    image: 878799173487.dkr.ecr.us-west-2.amazonaws.com/ansible
+    links:
+      - db
+    environment:
+      PROBE_HOST: "db"
+      PROBE_PORT: "3306"
+    command: ["probe.yml"]
+
+  test:
+    image: 878799173487.dkr.ecr.us-west-2.amazonaws.com/notejam-acceptance
+    links:
+    - nginx
+    environment:
+      URL: http://nginx:8000/
+      JUNIT_REPORT_PATH: /reports/acceptance.xml
+      JUNIT_REPORT_STACK: 1
+    command: --reporter mocha-jenkins-reporter

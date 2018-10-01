@@ -3,7 +3,9 @@ import os
 DEBUG = True
 ALLOWED_HOSTS = []
 
-PROJECT_DIR = "{}/../../".format(os.path.dirname(__file__))
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 ADMINS = (
     ('Sergey Komar', 'komarserjio@gmail.com'),
@@ -66,7 +68,8 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_DIR, 'static_files/'),
+    #os.path.normpath(os.path.join(PROJECT_DIR, 'static_files/')),
+    os.path.normpath(os.path.join(PROJECT_DIR, 'static_files/')),
 )
 
 # List of finder classes that know how to find static files in

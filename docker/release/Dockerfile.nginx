@@ -1,0 +1,6 @@
+FROM nginx
+
+MAINTAINER Ivan Kropotov <ivan.cropotov@toptal.com>
+
+# Copy notejam nginx configuration file
+COPY notejam.conf /etc/nginx/conf.d/notejam.conf

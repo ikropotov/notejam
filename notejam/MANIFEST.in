@@ -1,6 +1,5 @@
-recursive-include templates *
+recursive-include notejam/templates *
+recursive-include notejam/static_files *
 recursive-include notes/templates *
 recursive-include pads/templates *
 recursive-include users/templates *
-
-recursive-include static_files *

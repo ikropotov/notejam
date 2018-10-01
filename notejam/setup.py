@@ -8,7 +8,8 @@ setup(
     include_package_data = True,
     scripts              = ["manage.py"],
     install_requires     = ["Django>=1.11,<2.0",
-                            "MySQL-python>=1.2.5"],
+                            "MySQL-python>=1.2.5",
+                            "uwsgi>=2.0"],
     extras_require       = {
         "test": [
             "colorama>=0.3.9",
