@@ -22,7 +22,6 @@ services:
       dockerfile: docker/dev/Dockerfile
     volumes:
       - build:/build
-      - ../../target:/wheelhouse
     entrypoint: "entrypoint.sh"
     command: ["pip", "wheel", "--no-index", "-f /build", "."]
 
