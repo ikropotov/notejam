@@ -1,4 +1,4 @@
-FROM 878799173487.dkr.ecr.us-west-2.amazonaws.com/notejam
+FROM ikropotov/notejam-base-image
 
 MAINTAINER Ivan Kropotov <ivan.cropotov@toptal.com>
 
