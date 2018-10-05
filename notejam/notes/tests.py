@@ -107,4 +107,4 @@ class NoteTest(TestCase):
         client = Client()
         client.login(**user_data)
         response = client.get(reverse('view_note', args=(note.id,)), {})
-        self.assertEqual(404, response.status_code)
+        self.assertEqual(504, response.status_code)
