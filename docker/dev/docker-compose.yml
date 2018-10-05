@@ -26,7 +26,7 @@ services:
     command: ["pip", "wheel", "--no-index", "-f /build", "."]
 
   agent:
-    image: 878799173487.dkr.ecr.us-west-2.amazonaws.com/ansible
+    image: ikropotov/notejam-docker-ansible
     links:
       - db
     environment:
