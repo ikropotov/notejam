@@ -27,7 +27,7 @@ node {
             $class: 'StringParameterValue',
             name: 'IMAGE_TAG',
             value: 'ikropotov/notejam:' + imageTag
-
+        ]]
     }
     finally {
         stage 'Collect test reports'
