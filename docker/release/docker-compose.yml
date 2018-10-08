@@ -54,6 +54,7 @@ services:
     environment:
       PROBE_HOST: "db"
       PROBE_PORT: "3306"
+      PROBE_TIMEOUT: "360"
     command: ["probe.yml"]
 
   test:
